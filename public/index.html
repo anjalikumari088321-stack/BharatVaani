@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BharatVaani – Gaon ka AI Dost</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  background:linear-gradient(135deg,#fff8e1,#fff3e0);
+  color:#263238;
+  padding:25px 15px;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.logo{
+  font-size:42px;
+  margin-bottom:8px;
+}
+
+h1{
+  font-size:36px;
+  color:#e65100;
+}
+
+.tagline{
+  margin-top:8px;
+  font-size:17px;
+  color:#555;
+}
+
+.badge{
+  display:inline-block;
+  margin-top:12px;
+  padding:7px 15px;
+  border-radius:20px;
+  background:#e8f5e9;
+  color:#2e7d32;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.box{
+  background:white;
+  padding:30px;
+  border-radius:24px;
+  max-width:600px;
+  margin:auto;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.section-title{
+  font-size:20px;
+  margin-bottom:15px;
+}
+
+.languages{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+
+.language{
+  border:1px solid #ddd;
+  background:#fafafa;
+  color:#333;
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.language.active{
+  background:#fff3e0;
+  border-color:#ff9800;
+  color:#e65100;
+  font-weight:bold;
+}
+
+.language.active{
+  background:#fff3e0;
+  border-color:#ff9800;
+  color:#e65100;
+  font-weight:bold;
+}
+
+.mic-area{
+  text-align:center;
+  margin:20px 0;
+}
+
+button{
+  padding:16px 30px;
+  font-size:19px;
+  border-radius:50px;
+  border:none;
+  background:linear-gradient(135deg,#ff6f00,#f4511e);
+  color:white;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(255,111,0,.3);
+}
+
+button:hover{
+  transform:scale(1.03);
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.status{
+  margin-top:12px;
+  font-size:14px;
+  color:#777;
+}
+
+.card{
+  margin-top:18px;
+  padding:16px;
+  border-radius:15px;
+  background:#fafafa;
+  border:1px solid #eee;
+  text-align:left;
+}
+
+.card-title{
+  font-weight:bold;
+  margin-bottom:8px;
+  color:#e65100;
+}
+
+#output{
+  font-size:16px;
+  line-height:1.6;
+}
+
+#reply{
+  white-space:pre-line;
+  font-size:16px;
+  line-height:1.7;
+  color:#263238;
+}
+
+.features{
+  max-width:600px;
+  margin:22px auto 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.feature{
+  background:white;
+  padding:14px 8px;
+  border-radius:15px;
+  box-shadow:0 4px 12px rgba(0,0,0,.07);
+  font-size:13px;
+}
+
+.footer{
+  text-align:center;
+  margin-top:25px;
+  color:#777;
+  font-size:13px;
+}
+
+@media(max-width:500px){
+  h1{font-size:30px}
+  .box{padding:22px}
+  .features{grid-template-columns:1fr}
+}
+.quick-topics{
+  margin:20px 0;
+  text-align:left;
+}
+
+.topic-title{
+  font-size:15px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.topic-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.topic{
+  background:#f5f5f5;
+  color:#333;
+  border:1px solid #ddd;
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.topic:hover{
+  background:#fff3e0;
+  border-color:#ff9800;
+}
+.history-box{
+  margin-top:18px;
+  padding:16px;
+  border-radius:15px;
+  background:#fff8e1;
+  border:1px solid #ffe0b2;
+  text-align:left;
+}
+
+.history-title{
+  font-weight:bold;
+  color:#e65100;
+  margin-bottom:10px;
+}
+
+#history{
+  font-size:14px;
+  line-height:1.6;
+  color:#555;
+  max-height:150px;
+  overflow-y:auto;
+}
+
+#clearHistory{
+  margin-top:12px;
+  padding:8px 14px;
+  font-size:13px;
+  background:#757575;
+  box-shadow:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="logo">🇮🇳</div>
+
+  <h1>BharatVaani</h1>
+
+  <p class="tagline">Gaon ka AI Dost • Bolo, Samjho, Jawab Pao</p>
+
+  <span class="badge">● AI Assistant Online</span>
+</div>
+
+<div class="box">
+
+  <div class="section-title">🗣️ Apni language choose karein</div>
+
+  <div class="languages">
+  <button class="language active" data-lang="hi-IN">🇮🇳 Hindi</button>
+  <button class="language" data-lang="en-IN">🇬🇧 English</button>
+  <button class="language" data-lang="hi-IN">💬 Hinglish</button>
+  <button class="language" data-lang="hi-IN">🌾 Braj</button>
+</div>
+<div class="quick-topics">
+  <div class="topic-title">✨ Aap kis baare mein poochna chahte hain?</div>
+
+  <div class="topic-buttons">
+    <button class="topic" data-question="PM Kisan Yojana kya hai?">
+      🌾 Agriculture
+    </button>
+
+    <button class="topic" data-question="DBMS mein weak entity kya hoti hai?">
+      📚 Education
+    </button>
+
+    <button class="topic" data-question="Kanya Sumangala Yojana kya hai?">
+      🏛️ Government Schemes
+    </button>
+  </div>
+</div>
+
+  <div class="mic-area">
+    <button id="micBtn">🎤 Mic Dabao</button>
+    <div class="status" id="status">Mic dabakar apna sawaal boliye</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">👤 Aapne kaha</div>
+    <div id="output">Yahan aapki baat aayegi...</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🤖 BharatVaani ka jawab</div>
+    <div id="reply">Aapke sawaal ka jawab yahan aayega...</div>
+  </div>
+  <div class="history-box">
+  <div class="history-title">🕘 Recent Conversation</div>
+  <div id="history">Abhi koi conversation nahi hai.</div>
+  <button id="clearHistory">🗑️ Clear History</button>
+</div>
+
+</div>
+
+<div class="features">
+  <div class="feature">🎤 Voice First</div>
+  <div class="feature">🌐 Indian Languages</div>
+  <div class="feature">🤖 AI Powered</div>
+</div>
+
+<div class="footer">
+  BharatVaani – Jo Bharat ki bhasha bole, wahi Bharat ka AI hai.
+</div>
+
+<script>
+
+const micBtn = document.getElementById('micBtn');
+const output = document.getElementById('output');
+const replyEl = document.getElementById('reply');
+const status = document.getElementById('status');
+const languageButtons =
+  document.querySelectorAll('.language');
+
+let selectedLanguage = 'hi-IN';
+
+languageButtons.forEach(button => {
+
+  button.addEventListener('click', () => {
+
+    languageButtons.forEach(btn =>
+      btn.classList.remove('active')
+    );
+
+    button.classList.add('active');
+
+    selectedLanguage =
+      button.dataset.lang;
+
+    status.innerText =
+      "Language selected: " +
+      button.innerText;
+  });
+
+});
+const topicButtons =
+  document.querySelectorAll('.topic');
+
+topicButtons.forEach(button => {
+
+  button.addEventListener('click', async () => {
+    const historyEl = document.getElementById('history');
+const clearHistory = document.getElementById('clearHistory');
+
+let conversationHistory = [];
+
+function addToHistory(question, answer) {
+
+  conversationHistory.push({
+    question: question,
+    answer: answer
+  });
+
+  historyEl.innerHTML = conversationHistory
+    .slice(-5)
+    .map(item => `
+      <div style="margin-bottom:10px;">
+        <b>👤 You:</b> ${item.question}<br>
+        <b>🤖 AI:</b> ${item.answer}
+      </div>
+    `)
+    .join('');
+}
+
+clearHistory.onclick = () => {
+  conversationHistory = [];
+  historyEl.innerText = "Abhi koi conversation nahi hai.";
+};
+
+
+    const question = button.dataset.question;
+
+    output.innerText = question;
+    replyEl.innerText = "AI soch raha hai... 🤖";
+    status.innerText =
+      "BharatVaani jawab taiyar kar raha hai...";
+
+    try {
+
+      const res = await fetch('/ask', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          text: question
+        })
+      });
+
+      const data = await res.json();
+
+      replyEl.innerText = data.reply;
+      addToHistory(question, data.reply);
+      addToHistory(text, data.reply);
+
+      const utter =
+        new SpeechSynthesisUtterance(data.reply);
+
+      utter.lang = selectedLanguage;
+
+      speechSynthesis.speak(utter);
+
+      status.innerText = "Jawab ready hai 🔊";
+
+    } catch (error) {
+
+      console.error(error);
+
+      replyEl.innerText =
+        "Sorry, abhi AI se connection nahi ho pa raha.";
+
+      status.innerText = "Connection error";
+    }
+  });
+
+});
+
+const SpeechRecognition =
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
+
+if (!SpeechRecognition) {
+
+  micBtn.disabled = true;
+  status.innerText =
+    "Is browser me voice recognition supported nahi hai.";
+
+} else {
+
+  const rec = new SpeechRecognition();
+
+  rec.lang = selectedLanguage;
+  rec.interimResults = false;
+  rec.continuous = false;
+
+  micBtn.onclick = () => {
+
+    output.innerText = "Sun rahi hoon... 🎧";
+    replyEl.innerText = "AI soch raha hai... 🤖";
+    status.innerText = "Boliyega...";
+    
+    micBtn.disabled = true;
+
+    rec.start();
+  };
+
+  rec.onresult = async (e) => {
+
+    const text = e.results[0][0].transcript;
+
+    output.innerText = text;
+    status.innerText = "Aapki baat samajh li...";
+
+    try {
+
+      const res = await fetch('/ask', {
+
+        method: 'POST',
+
+        headers: {
+          'Content-Type':'application/json'
+        },
+
+        body: JSON.stringify({
+          text: text
+        })
+
+      });
+
+      const data = await res.json();
+
+      replyEl.innerText = data.reply;
+
+      status.innerText = "Jawab ready hai 🔊";
+
+      const utter =
+        new SpeechSynthesisUtterance(data.reply);
+
+      utter.lang = 'hi-IN';
+
+      speechSynthesis.speak(utter);
+
+    } catch(error) {
+
+      console.error(error);
+
+      replyEl.innerText =
+        "Sorry, abhi AI se connection nahi ho pa raha.";
+
+      status.innerText = "Connection error";
+
+    }
+
+    micBtn.disabled = false;
+  };
+
+  rec.onerror = (event) => {
+
+    console.error(event.error);
+
+    status.innerText =
+      "Mic me problem hui. Dobara try karein.";
+
+    micBtn.disabled = false;
+  };
+
+  rec.onend = () => {
+
+    micBtn.disabled = false;
+  };
+
+}
+
+</script>
+
+</body>
+</html>
