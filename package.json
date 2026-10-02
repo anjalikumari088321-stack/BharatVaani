@@ -1,18 +1,19 @@
 {
-  "name": "ai-bharat-in-indian-language",
+  "name": "bharatvaani",
   "version": "1.0.0",
-  "description": "",
+  "description": "BharatVaani - AI in Indian languages",
   "main": "server.js",
-  "scripts": {
-  "start": "node server.js"
-},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "Anjali Kumari",
+  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
-    "dotenv": "^18.0.4",
+    "dotenv": "^16.0.4",
     "express": "^5.2.1",
     "sarvamai": "^1.1.10"
   }
